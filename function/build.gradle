@@ -1,0 +1,11 @@
+plugins {
+    id 'java'
+}
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    compileOnly group: 'com.google.cloud.functions', name: 'functions-framework-api', version: '1.0.2'
+}

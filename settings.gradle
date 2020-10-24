@@ -8,3 +8,5 @@
  */
 
 rootProject.name = 'java-gcp-logging'
+
+include ':function'
