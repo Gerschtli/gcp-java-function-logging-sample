@@ -112,6 +112,83 @@ separate key while escaping every newline because every line is being interprete
 The last feature I made use of is the implementation of a custom filter. This way I am able to ignore log messages based
 on a simple predicate.
 
+## Make it pretty
+
+For the more involved folks that are eager to get the most out of Google Logging and its search and filtering
+possibilities: I wrote custom layouts to make the MDC easily accessible through separate entries in the json payload.
+
+So have a look at `logback-custom-layout.xml`. And for the ones that fear building json strings manually, you can also
+have a glance at `logback-custom-layout-with-gson.xml`.
+
+### Enhanced logs (by `logback-custom-layout-with-gson.xml`)
+
+```json
+{
+  "insertId": "000000-acfa1157-438c-4d07-8b59-86e9130d6105",
+  "jsonPayload": {
+    "mdc": {
+      "key2": "value2",
+      "key": "value"
+    },
+    "marker": {
+      "name": "marker1",
+      "references": [
+        "marker2",
+        "marker3"
+      ]
+    },
+    "message": "message arg"
+  },
+  "resource": {
+    "type": "cloud_function",
+    "labels": {
+      "function_name": "function-logging-sample",
+      "region": "europe-west3",
+      "project_id": "functions-terraform"
+    }
+  },
+  "timestamp": "2020-10-25T22:17:51.591Z",
+  "severity": "INFO",
+  "labels": {
+    "execution_id": "4g43m1elvcm1"
+  },
+  "logName": "projects/functions-terraform/logs/cloudfunctions.googleapis.com%2Fcloud-functions",
+  "trace": "projects/functions-terraform/traces/17c37aab2f5d7301a45c0acfa41f0d3a",
+  "receiveTimestamp": "2020-10-25T22:18:02.287789445Z"
+}
+```
+
+and
+
+```json
+{
+  "insertId": "000000-8b1fd3e5-b30c-4995-8518-691c01b54aff",
+  "jsonPayload": {
+    "mdc": {
+      "key2": "value2"
+    },
+    "message": "message arg",
+    "stacktrace": "java.lang.IndexOutOfBoundsException: null\n\tat tobias.function.Function.throwEx(Function.java:40)\n\tat tobias.function.Function.service(Function.java:28)\n\tat com.google.cloud.functions.invoker.NewHttpFunctionExecutor.service(NewHttpFunctionExecutor.java:67)\n\tat javax.servlet.http.HttpServlet.service(HttpServlet.java:790)\n\tat org.eclipse.jetty.servlet.ServletHolder.handle(ServletHolder.java:755)\n\tat org.eclipse.jetty.servlet.ServletHandler.doHandle(ServletHandler.java:547)\n\tat org.eclipse.jetty.server.handler.ScopedHandler.nextHandle(ScopedHandler.java:233)\n\tat org.eclipse.jetty.server.handler.ContextHandler.doHandle(ContextHandler.java:1297)\n\tat org.eclipse.jetty.server.handler.ScopedHandler.nextScope(ScopedHandler.java:188)\n\tat org.eclipse.jetty.servlet.ServletHandler.doScope(ServletHandler.java:485)\n\tat org.eclipse.jetty.server.handler.ScopedHandler.nextScope(ScopedHandler.java:186)\n\tat org.eclipse.jetty.server.handler.ContextHandler.doScope(ContextHandler.java:1212)\n\tat org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:141)\n\tat org.eclipse.jetty.server.handler.HandlerWrapper.handle(HandlerWrapper.java:127)\n\tat com.google.cloud.functions.invoker.runner.Invoker$NotFoundHandler.handle(Invoker.java:379)\n\tat org.eclipse.jetty.server.handler.HandlerWrapper.handle(HandlerWrapper.java:127)\n\tat org.eclipse.jetty.server.Server.handle(Server.java:500)\n\tat org.eclipse.jetty.server.HttpChannel.lambda$handle$1(HttpChannel.java:383)\n\tat org.eclipse.jetty.server.HttpChannel.dispatch(HttpChannel.java:547)\n\tat org.eclipse.jetty.server.HttpChannel.handle(HttpChannel.java:375)\n\tat org.eclipse.jetty.server.HttpConnection.onFillable(HttpConnection.java:270)\n\tat org.eclipse.jetty.io.AbstractConnection$ReadCallback.succeeded(AbstractConnection.java:311)\n\tat org.eclipse.jetty.io.FillInterest.fillable(FillInterest.java:103)\n\tat org.eclipse.jetty.io.ChannelEndPoint$2.run(ChannelEndPoint.java:117)\n\tat org.eclipse.jetty.util.thread.strategy.EatWhatYouKill.runTask(EatWhatYouKill.java:336)\n\tat org.eclipse.jetty.util.thread.strategy.EatWhatYouKill.doProduce(EatWhatYouKill.java:313)\n\tat org.eclipse.jetty.util.thread.strategy.EatWhatYouKill.tryProduce(EatWhatYouKill.java:171)\n\tat org.eclipse.jetty.util.thread.strategy.EatWhatYouKill.run(EatWhatYouKill.java:129)\n\tat org.eclipse.jetty.util.thread.ReservedThreadExecutor$ReservedThread.run(ReservedThreadExecutor.java:388)\n\tat org.eclipse.jetty.util.thread.QueuedThreadPool.runJob(QueuedThreadPool.java:806)\n\tat org.eclipse.jetty.util.thread.QueuedThreadPool$Runner.run(QueuedThreadPool.java:938)\n\tat java.base/java.lang.Thread.run(Thread.java:834)\n"
+  },
+  "resource": {
+    "type": "cloud_function",
+    "labels": {
+      "region": "europe-west3",
+      "function_name": "function-logging-sample",
+      "project_id": "functions-terraform"
+    }
+  },
+  "timestamp": "2020-10-25T22:17:51.682Z",
+  "severity": "ERROR",
+  "labels": {
+    "execution_id": "4g43m1elvcm1"
+  },
+  "logName": "projects/functions-terraform/logs/cloudfunctions.googleapis.com%2Fcloud-functions",
+  "trace": "projects/functions-terraform/traces/17c37aab2f5d7301a45c0acfa41f0d3a",
+  "receiveTimestamp": "2020-10-25T22:18:02.287789445Z"
+}
+```
+
 ## That's it.
 
 Nothing more or less to learn about. Hope it sparkled joy :)
