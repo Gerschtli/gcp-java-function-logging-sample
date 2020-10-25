@@ -1,4 +1,4 @@
-rootProject.name = 'java-gcp-logging'
+rootProject.name = 'gcp-java-function-logging-sample'
 
 include ':function'
 include ':logging'
