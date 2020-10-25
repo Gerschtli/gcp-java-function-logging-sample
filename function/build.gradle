@@ -1,11 +1,9 @@
 plugins {
-    id 'java'
-}
-
-repositories {
-    jcenter()
+    id 'com.github.johnrengelman.shadow'
 }
 
 dependencies {
-    compileOnly group: 'com.google.cloud.functions', name: 'functions-framework-api', version: '1.0.2'
+    def functionsFrameworkVersion = '1.0.2'
+
+    compileOnly group: 'com.google.cloud.functions', name: 'functions-framework-api', version: functionsFrameworkVersion
 }
