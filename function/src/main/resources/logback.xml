@@ -1,0 +1,15 @@
+<configuration>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <filter class="tobias.function.SampleFilter"/>
+
+        <encoder>
+            <pattern>
+                {"severity": "%level", "marker": "%marker", "mdc": "%mdc", "message": "%message", "stacktrace": "%replace(%xThrowable){'\n', '\\n'}"}%nopex%n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <root level="info">
+        <appender-ref ref="STDOUT"/>
+    </root>
+</configuration>
