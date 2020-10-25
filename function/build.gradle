@@ -3,10 +3,29 @@ plugins {
     id 'io.freefair.lombok'
 }
 
+configurations {
+    invoker
+}
+
 dependencies {
+    def functionInvokerVersion = '1.0.0'
     def functionsFrameworkVersion = '1.0.2'
 
+    invoker group: 'com.google.cloud.functions.invoker', name: 'java-function-invoker', version: functionInvokerVersion
     compileOnly group: 'com.google.cloud.functions', name: 'functions-framework-api', version: functionsFrameworkVersion
 
     implementation project(':logging')
+}
+
+tasks.register("runFunction", JavaExec) {
+    main = 'com.google.cloud.functions.invoker.runner.Invoker'
+    classpath(configurations.invoker)
+    inputs.files(configurations.runtimeClasspath, sourceSets.main.output)
+    args(
+            '--target', project.findProperty('runFunction.target'),
+            '--port', project.findProperty('runFunction.port') ?: 8080
+    )
+    doFirst {
+        args('--classpath', files(configurations.runtimeClasspath, sourceSets.main.output).asPath)
+    }
 }
