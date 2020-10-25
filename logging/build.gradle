@@ -3,7 +3,10 @@ plugins {
 }
 
 dependencies {
+    def gsonVersion = '2.8.6'
     def logbackVersion = '1.2.3'
 
     api group: 'ch.qos.logback', name: 'logback-classic', version: logbackVersion
+
+    implementation group: 'com.google.code.gson', name: 'gson', version: gsonVersion
 }
