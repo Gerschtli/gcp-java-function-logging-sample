@@ -1,6 +1,6 @@
 <configuration>
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-        <filter class="tobias.function.SampleFilter"/>
+        <filter class="tobias.logging.SampleFilter"/>
 
         <encoder>
             <pattern>

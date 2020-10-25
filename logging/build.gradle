@@ -1,0 +1,9 @@
+plugins {
+    id 'java-library'
+}
+
+dependencies {
+    def logbackVersion = '1.2.3'
+
+    api group: 'ch.qos.logback', name: 'logback-classic', version: logbackVersion
+}

@@ -5,9 +5,8 @@ plugins {
 
 dependencies {
     def functionsFrameworkVersion = '1.0.2'
-    def logbackVersion = '1.2.3'
 
     compileOnly group: 'com.google.cloud.functions', name: 'functions-framework-api', version: functionsFrameworkVersion
 
-    implementation group: 'ch.qos.logback', name: 'logback-classic', version: logbackVersion
+    implementation project(':logging')
 }
