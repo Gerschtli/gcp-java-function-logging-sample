@@ -8,7 +8,7 @@ configurations {
 }
 
 dependencies {
-    def functionInvokerVersion = '1.0.0'
+    def functionInvokerVersion = '1.0.1'
     def functionsFrameworkVersion = '1.0.3'
 
     invoker group: 'com.google.cloud.functions.invoker', name: 'java-function-invoker', version: functionInvokerVersion
